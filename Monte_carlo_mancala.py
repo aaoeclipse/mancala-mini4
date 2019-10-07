@@ -11,8 +11,11 @@ class Monte_carlo_mancala:
         self.juego_mancala = Mancala()
 
     def gameOver(self):
-        if self.juego_mancala.get_ganador(end=True) == 1:
+        ganador = self.juego_mancala.get_ganador(end=True)
+        if ganador == 1:
             print('El AI Gano')
+        elif ganador == 0:
+            print('Empate')
         else:
             print('El jugador Gano')
         exit(0)
@@ -59,10 +62,14 @@ class Monte_carlo_mancala:
                 if posibles_jugadas == []:
                     self.gameOver()
                     print('Game Over')
-
+                
+                for number in range(len(posibles_jugadas)):
+                    posibles_jugadas[number] -= 6
 
                 print('Las posibles jugadas son: {}'.format(posibles_jugadas))
                 movida_player = input()
+                # movida_player += 6
+
                 if int(movida_player) not in posibles_jugadas:
                     while True:
                         print('no es posible la jugada')
@@ -70,7 +77,8 @@ class Monte_carlo_mancala:
                         if int(movida_player) in posibles_jugadas:
                             break
                 
-                self.juego_mancala.hacer_jugada(int(movida_player))
+                self.juego_mancala.hacer_jugada(int(movida_player)+6)
+
             print(self.juego_mancala)
             
           

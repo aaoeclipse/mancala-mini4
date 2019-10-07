@@ -110,8 +110,6 @@ class Mancala:
         jugador_1 = sum(self.tablero[0:7])
         jugador_2 = sum(self.tablero[7:14])
         if end:
-            print(self.tablero[0:7])
-            print(self.tablero[7:13])
             print('Puntaje del jugado: {}'.format(jugador_2))
             print('Puntaje del AI: {}'.format(jugador_1))
 
@@ -135,7 +133,7 @@ class Mancala:
 
     def __str__(self):
         tabl_reverse = self.tablero[::-1]
-        tablero_en_string = " " + str(tabl_reverse[1:7]) + "\n"
-        tablero_en_string += str(self.tablero[13])+ "                  "+ str(self.tablero[6]) + "\n"
-        tablero_en_string += " " + str(self.tablero[0:6])
+        tablero_en_string = " " + str(tabl_reverse[8:]) + "\n"
+        tablero_en_string += str(self.tablero[6])+ "                  "+ str(self.tablero[13]) + "\n"
+        tablero_en_string += " " + str(self.tablero[7:13])
         return tablero_en_string
