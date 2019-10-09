@@ -23,9 +23,11 @@ class Monte_carlo_mancala:
     def empezar_juego(self):
         """ Empieza el juego """
         juego_termino = False
-        resultados_de_juegos = [0,0,0,0,0,0]
+        print(self.juego_mancala)
+
         # Empieza juego
         while not juego_termino:
+            resultados_de_juegos = [0,0,0,0,0,0]
             # IA piensa a lo random
             for num_de_partida in range(self.num_juegos_que_jugar):
                 # Se crea una copia del juego en la cual se va a probar hacer alguna jugada alazar
@@ -52,7 +54,7 @@ class Monte_carlo_mancala:
             while self.juego_mancala.turno_jugador == 1:
                 movida = resultados_de_juegos.index(max(resultados_de_juegos))
                 self.juego_mancala.hacer_jugada(movida)
-                print('AI movio {}'.format(movida))
+                print('AI movio {}'.format(movida+1))
 
             # Turno del Jugador
             # Mostrarle el tablero al jugador
@@ -84,5 +86,5 @@ class Monte_carlo_mancala:
           
             
 
-juego = Monte_carlo_mancala()
+juego = Monte_carlo_mancala(10000)
 juego.empezar_juego()

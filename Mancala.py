@@ -60,7 +60,7 @@ class Mancala:
         if self.turno_jugador == 1: 
             if posicion_final == 6:
                 self.cambio_de_turno()
-            elif self.tablero[posicion_final] == 1:
+            elif self.tablero[posicion_final] == 1 and self.tablero[12-posicion_final] is not 0: # mira si estaba vacio
                 self.tablero[posicion_final] = 0
                 self.tablero[6] += 1
                 self.tablero[6] += self.tablero[12-posicion_final]
@@ -69,7 +69,7 @@ class Mancala:
         else:
             if posicion_final == 13:
                 self.cambio_de_turno()
-            elif self.tablero[posicion_final] == 1:
+            elif self.tablero[posicion_final] == 1 and self.tablero[12-posicion_final] is not 0:
                 self.tablero[posicion_final] = 0
                 self.tablero[13] += 1
                 self.tablero[13] += self.tablero[12-posicion_final]
