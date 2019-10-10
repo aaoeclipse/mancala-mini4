@@ -6,6 +6,7 @@ import copy
 
 class Monte_carlo_mancala:
     """ Un juego de Mancala con una IA de puro monte carlo """
+
     def __init__(self, n=100):
         self.num_juegos_que_jugar = n # numero de juegos que hace el monte carlo
         self.juego_mancala = Mancala()
@@ -51,38 +52,40 @@ class Monte_carlo_mancala:
                     resultados_de_juegos[primera_jugada] += 1
 
             # Turno de IA
-            while self.juego_mancala.turno_jugador == 1:
-                movida = resultados_de_juegos.index(max(resultados_de_juegos))
-                self.juego_mancala.hacer_jugada(movida)
-                print('AI movio {}'.format(movida+1))
-
-            # Turno del Jugador
-            # Mostrarle el tablero al jugador
-            while self.juego_mancala.turno_jugador == 2:
-                print(self.juego_mancala)
-                posibles_jugadas = self.juego_mancala.posibles_jugadas()
-                if posibles_jugadas == []:
-                    self.gameOver()
-                    print('Game Over')
-                
-                for number in range(len(posibles_jugadas)):
-                    posibles_jugadas[number] -= 6
-
-                print('Las posibles jugadas son: {}'.format(posibles_jugadas))
-                movida_player = input()
-                # movida_player += 6
-
-                if int(movida_player) not in posibles_jugadas:
-                    while True:
-                        print('no es posible la jugada')
-                        movida_player = input()
-                        if int(movida_player) in posibles_jugadas:
-                            break
-                
-                self.juego_mancala.hacer_jugada(int(movida_player)+6)
-
-            print(self.juego_mancala)
+            movida = resultados_de_juegos.index(max(resultados_de_juegos))
+            self.juego_mancala.hacer_jugada(movida)
+            print('AI movio {}'.format(movida+1))
             
+            # Si no es turno del jugador, lo hace skip
+            if self.juego_mancala.turno_jugador != 1:
+                # Turno del Jugador
+                # Mostrarle el tablero al jugador
+                while self.juego_mancala.turno_jugador == 2:
+                    print(self.juego_mancala)
+                    posibles_jugadas = self.juego_mancala.posibles_jugadas()
+                    if posibles_jugadas == []:
+                        self.gameOver()
+                        print('Game Over')
+                    
+                    for number in range(len(posibles_jugadas)):
+                        posibles_jugadas[number] -= 6
+
+                    print('Las posibles jugadas son: {}'.format(posibles_jugadas))
+                    movida_player = input()
+                    # movida_player += 6
+
+                    if int(movida_player) not in posibles_jugadas:
+                        while True:
+                            print('no es posible la jugada')
+                            movida_player = input()
+                            if int(movida_player) in posibles_jugadas:
+                                break
+                    
+                    self.juego_mancala.hacer_jugada(int(movida_player)+6)
+
+                print(self.juego_mancala)
+                print('========================')
+
           
             
 

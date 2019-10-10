@@ -1,5 +1,3 @@
-
-
 class Mancala:
     """ Aqui estan el juego de mancla con todas las reglas """
     """ 1. Solo se puede elegir las pociciones del lado de uno
@@ -11,22 +9,21 @@ class Mancala:
     def __init__(self):
         """ crea tablero inicial """
         """ El tablero es un array del 0 a 13 (14 posiciones) """
-        self.tablero = [4,4,4,4,4,4,0,4,4,4,4,4,4,0]
+        self.tablero = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
         self.turno_jugador = 1
         self.jugada_inicial = None
 
-
-    def hacer_jugada(self,posicion_de_jugada):
-        """ Recive la posicion en la cual se va a hacer la jugada """
+    def hacer_jugada(self, posicion_de_jugada):
+        """ Recive la posicion en la cual se va a hacer la jugada y la hace """
         stack_de_piezas = self.tablero[posicion_de_jugada]
         self.tablero[posicion_de_jugada] = 0
         # Distribuir la distribucion de piezas
-        ultimo_turno = self.distribucion_piezas(stack_de_piezas,posicion_de_jugada)
+        ultimo_turno = self.distribucion_piezas(
+            stack_de_piezas, posicion_de_jugada)
         # Ver si aplican una de las reglas especiales
         self.reglas_especiales(ultimo_turno)
         # Cambiar de turno de jugador
         self.cambio_de_turno()
-
 
     def distribucion_piezas(self, stack, posicion_obtenido):
         """ distribucion de piezas """
@@ -51,16 +48,16 @@ class Mancala:
         ultima_piedra = (posicion_ahora+posicion_obtenido)
         return ultima_piedra
 
-
     def reglas_especiales(self, posicion_final):
         """ Hay dos reglas especiales
         Si la ultima pieza cae en tu propio puntaje, entonces tienes otro turno
         si la ultima pieza cae en uno vacio, entonces el que esta del otro lado y se van a tu puntaje """
         # Jugador 1
-        if self.turno_jugador == 1: 
+        if self.turno_jugador == 1:
             if posicion_final == 6:
                 self.cambio_de_turno()
-            elif self.tablero[posicion_final] == 1 and self.tablero[12-posicion_final] is not 0: # mira si estaba vacio
+            # mira si estaba vacio
+            elif self.tablero[posicion_final] == 1 and self.tablero[12-posicion_final] is not 0:
                 self.tablero[posicion_final] = 0
                 self.tablero[6] += 1
                 self.tablero[6] += self.tablero[12-posicion_final]
@@ -75,35 +72,31 @@ class Mancala:
                 self.tablero[13] += self.tablero[12-posicion_final]
                 self.tablero[12-posicion_final] = 0
 
-
-
     def cambio_de_turno(self):
         next_player = self.turno_jugador % 2
         self.turno_jugador = next_player + 1
-
 
     def posibles_jugadas(self):
         """ Regresa una lista de posibles posiciones que elegir """
         # Miramos quien esta jugando
         jugadas_posibles = []
         if self.turno_jugador == 1:
-            jugadas_posibles = [0,1,2,3,4,5]
+            jugadas_posibles = [0, 1, 2, 3, 4, 5]
         else:
-            jugadas_posibles = [7,8,9,10,11,12]
+            jugadas_posibles = [7, 8, 9, 10, 11, 12]
         # la lista para borrar
         elements_to_delete = []
         # guardamos las jugadas que estan vacias
         for x in jugadas_posibles:
             if self.tablero[x] == 0:
                 elements_to_delete.append(x)
-        
+
         # Borramos esas posibilidades
         for x in elements_to_delete:
             jugadas_posibles.remove(x)
 
         # Si regresa vacio es que es Game Over, esto lo hace handle el monte_carlo_mancala.py
         return jugadas_posibles
-
 
     def get_ganador(self, end=False):
         """ Aqui hay que contar las casillas de las esquinas para los jugadores """
@@ -120,10 +113,8 @@ class Mancala:
         else:
             return 0
 
-
     def get_primera_jugada(self):
         return self.jugada_inicial
-
 
     def set_primera_jugada(self, jugada_1):
         self.jugada_inicial = jugada_1
@@ -134,6 +125,7 @@ class Mancala:
     def __str__(self):
         tabl_reverse = self.tablero[::-1]
         tablero_en_string = " " + str(tabl_reverse[8:]) + "\n"
-        tablero_en_string += str(self.tablero[6])+ "                  "+ str(self.tablero[13]) + "\n"
+        tablero_en_string += str(self.tablero[6]) + \
+            "                  " + str(self.tablero[13]) + "\n"
         tablero_en_string += " " + str(self.tablero[7:13])
         return tablero_en_string
